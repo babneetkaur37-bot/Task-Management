@@ -1,0 +1,10 @@
+/* Import Bootstrap and Icons directly */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* Your custom board global styles */
+body {
+  background-color: #f4f5f7;
+  margin: 0;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+}

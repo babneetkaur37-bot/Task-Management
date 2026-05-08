@@ -1,0 +1,123 @@
+<div class="board-wrapper">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-4">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand fw-bold" href="#"><i class="bi bi-kanban-fill me-2"></i>Flux Manager</a>
+      <div class="ms-auto">
+        <span class="text-white-50 small">Project: <strong class="text-white">Main Sprint</strong></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid px-4">
+    <div class="card border-0 shadow-sm mb-5 p-2 rounded-4">
+      <div class="card-body">
+        <div class="row align-items-end g-3">
+          <div class="col-lg-4 col-md-6">
+            <label class="form-label fw-bold text-muted small uppercase">Task Title</label>
+            <input [(ngModel)]="newTask.title" class="form-control border-0 bg-light" placeholder="e.g. Design Login Page">
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <label class="form-label fw-bold text-muted small uppercase">Assignee</label>
+            <select [(ngModel)]="newTask.assigned_to" class="form-select form-select-lg border-0 bg-light">
+              <option [ngValue]="null">Choose member...</option>
+              <option *ngFor="let u of users" [ngValue]="u.id">{{ u.username }}</option>
+            </select>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <label class="form-label fw-bold text-muted small uppercase">Priority</label>
+            <select [(ngModel)]="newTask.priority" class="form-select form-select-lg border-0 bg-light">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="HIGH">High</option>
+              <option value="CRITICAL">Critical</option>
+            </select>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <button class="btn btn-primary btn-lg w-100 fw-bold shadow-sm" (click)="addTask()">
+              <i class="bi bi-plus-lg"></i> Create
+            </button>
+          </div>
+          <div class="col-12 mt-3">
+             <textarea [(ngModel)]="newTask.description" class="form-control border-0 bg-light" rows="1" placeholder="Short description..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row flex-nowrap overflow-auto pb-4" cdkDropListGroup>
+
+      <div class="col-12 col-md-4 col-xl-3 mb-4" *ngFor="let col of [{n:'Backlog', id:1, data:todo, theme:'secondary'}, {n:'In Progress', id:2, data:inProgress, theme:'primary'}, {n:'Completed', id:3, data:done, theme:'success'}]">
+        <div class="column-container">
+          <div class="d-flex align-items-center mb-3 justify-content-between">
+            <h6 class="fw-800 text-uppercase text-muted m-0"><i class="bi bi-circle-fill text-{{col.theme}} me-2 small"></i>{{col.n}}</h6>
+            <span class="badge bg-white text-dark border shadow-sm rounded-pill">{{col.data.length}}</span>
+          </div>
+
+          <div class="task-list-area rounded-4 shadow-inner" cdkDropList [cdkDropListData]="col.data" (cdkDropListDropped)="drop($event, col.id)">
+            <div class="card task-card border-0 shadow-sm mb-3 position-relative" *ngFor="let task of col.data" cdkDrag (click)="openEdit(task)">
+              <div class="priority-stripe" [ngClass]="'bg-' + task.priority.toLowerCase()"></div>
+              <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                   <span class="badge priority-chip" [attr.data-prio]="task.priority">{{task.priority}}</span>
+                   <button class="btn btn-link btn-sm p-0 text-danger opacity-50 hover-100" (click)="deleteTask(task.task_id); $event.stopPropagation()">
+                     <i class="bi bi-trash3-fill"></i>
+                   </button>
+                </div>
+                <h6 class="fw-bold mb-2 text-dark">{{task.title}}</h6>
+                <p class="small text-muted mb-3 line-clamp-2">{{task.description || 'No additional details.'}}</p>
+                <hr class="my-2 opacity-5">
+                <div class="d-flex align-items-center">
+                  <div class="user-avatar">{{task.assignee_name?.charAt(0) || '?'}}</div>
+                  <small class="fw-bold text-secondary ms-2">{{task.assignee_name}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal d-block bg-dark bg-opacity-75 backdrop-blur" *ngIf="showEditModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow-lg">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="fw-800 text-primary">Edit Task Details</h5>
+        <button type="button" class="btn-close" (click)="showEditModal = false"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-muted">Title</label>
+          <input [(ngModel)]="editingTask!.title" class="form-control bg-light border-0">
+        </div>
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-muted">Description</label>
+          <textarea [(ngModel)]="editingTask!.description" class="form-control bg-light border-0" rows="5"></textarea>
+        </div>
+        <div class="row g-3">
+          <div class="col-6">
+            <label class="form-label small fw-bold text-muted">Assignee</label>
+            <select [(ngModel)]="editingTask!.assigned_to" class="form-select bg-light border-0">
+              <option *ngFor="let u of users" [ngValue]="u.id">{{ u.username }}</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label class="form-label small fw-bold text-muted">Priority</label>
+            <select [(ngModel)]="editingTask!.priority" class="form-select bg-light border-0">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="HIGH">High</option>
+              <option value="CRITICAL">Critical</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button class="btn btn-light px-4" (click)="showEditModal = false">Cancel</button>
+        <button class="btn btn-primary px-4 fw-bold" (click)="saveUpdate()">Apply Changes</button>
+      </div>
+    </div>
+  </div>
+</div>

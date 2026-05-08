@@ -1,0 +1,67 @@
+{
+  "hash": "b9d1aeb7",
+  "configHash": "274ab254",
+  "lockfileHash": "d60a3447",
+  "browserHash": "b6ddd423",
+  "optimized": {
+    "@angular/cdk/drag-drop": {
+      "src": "../../../../../../node_modules/@angular/cdk/fesm2022/drag-drop.mjs",
+      "file": "@angular_cdk_drag-drop.js",
+      "fileHash": "676c170c",
+      "needsInterop": false
+    },
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "e870950d",
+      "needsInterop": false
+    },
+    "@angular/common/http": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
+      "file": "@angular_common_http.js",
+      "fileHash": "5abe6a19",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "d83d8c51",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "8503eccd",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "72da5ecb",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "12fe5d0d",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-D3TSBAFC": {
+      "file": "chunk-D3TSBAFC.js"
+    },
+    "chunk-5J5XKCRI": {
+      "file": "chunk-5J5XKCRI.js"
+    },
+    "chunk-OUWWHAQE": {
+      "file": "chunk-OUWWHAQE.js"
+    },
+    "chunk-U574MPYA": {
+      "file": "chunk-U574MPYA.js"
+    },
+    "chunk-SIWP2DDL": {
+      "file": "chunk-SIWP2DDL.js"
+    }
+  }
+}

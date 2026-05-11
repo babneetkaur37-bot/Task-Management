@@ -10,9 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 $host = "127.0.0.1";
-$db_name = "tasks_management";
+$db_name = "task_management";
 $username = "root"; 
-$password = ""; 
+$password = "root123"; 
 
 try {
     $conn = new PDO("mysql:host=" . $host . ";dbname=" . $db_name, $username, $password);
